@@ -1,8 +1,8 @@
-# Fortium Africa Digital Foundation
+# Fortium Africa
 
 ## Project Overview
 
-Fortium Africa's digital foundation website showcasing engineering solutions for energy, water, and civil infrastructure projects across Africa.
+Fortium Africa website showcases engineering solutions for energy, water, and civil infrastructure projects across Africa.
 
 ## Getting Started
 
