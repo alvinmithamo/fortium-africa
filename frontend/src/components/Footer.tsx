@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Linkedin, Twitter } from "lucide-react";
-
+import Logo from "@/assets/FORTIUM WHITE PRIMARY LOGO.svg";
 const navigation = {
   company: [
     { name: "About Us", href: "/about-us" },
@@ -27,8 +27,12 @@ export const Footer = () => {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <h3 className="text-2xl font-heading font-bold mb-4">Fortium Africa</h3>
-            <p className="text-sm font-body mb-4 opacity-90">
+              <div className="flex lg:flex-1">
+          <Link to="/" className="-m-1.5 p-1.5">
+            <img src={Logo} alt="Fortium Africa" className="h-10 mb-2 object-contain" />
+          </Link>
+        </div>
+            <p className="text-sm font-body mb-5 opacity-90">
               Engineering Progress. Building Africa's Sustainable Future.
             </p>
             <div className="space-y-2 text-sm">
