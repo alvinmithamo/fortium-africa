@@ -1,7 +1,16 @@
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Target, Eye, Award, Users } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import aboutHero from "@/assets/about-hero.jpg";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 
 const values = [
   {
@@ -30,10 +39,61 @@ const values = [
     icon: Target,
   },
 ];
+const partners = [
+  { name: "Partner 1", logo: "https://via.placeholder.com/200x100?text=Partner+1" },
+  { name: "Partner 2", logo: "https://via.placeholder.com/200x100?text=Partner+2" },
+  { name: "Partner 3", logo: "https://via.placeholder.com/200x100?text=Partner+3" },
+  { name: "Partner 4", logo: "https://via.placeholder.com/200x100?text=Partner+4" },
+  { name: "Partner 5", logo: "https://via.placeholder.com/200x100?text=Partner+5" },
+  { name: "Partner 6", logo: "https://via.placeholder.com/200x100?text=Partner+6" },
+];
+
+const teamMembers = [
+  {
+    name: "Eng. James Mwangi",
+    role: "Managing Director & Lead Engineer",
+    bio: "Provides strategic leadership across all EPC projects, ensuring technical excellence and alignment with client objectives across the region.",
+  },
+  {
+    name: "Eng. Grace Njeri",
+    role: "Head of Renewable Energy",
+    bio: "Leads design and delivery of solar, hybrid and storage solutions, with a focus on reliability, safety and lifecycle performance.",
+  },
+  {
+    name: "Eng. Daniel Otieno",
+    role: "Civil & Infrastructure Lead",
+    bio: "Oversees planning and execution of water, civil and structural works, integrating sustainability and cost efficiency on every project.",
+  },
+  {
+    name: "Sarah Kendi",
+    role: "Projects & Delivery Manager",
+    bio: "Coordinates multidisciplinary teams, schedules and budgets to deliver projects on time, within scope, and to the highest quality standards.",
+  },
+  {
+    name: "Michael Banda",
+    role: "Commercial & Partnerships Lead",
+    bio: "Develops and manages partnerships with developers, utilities and development partners, ensuring long-term value for all stakeholders.",
+  },
+];
 
 const About = () => {
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  
+    useEffect(() => {
+      if (!carouselApi) return;
+  
+      const id = setInterval(() => {
+        try {
+          carouselApi.scrollNext();
+        } catch (e) {
+          // ignore
+        }
+      }, 3000);
+  
+      return () => clearInterval(id);
+    }, [carouselApi]);
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative min-h-[500px] flex items-center">
         <div className="absolute inset-0 z-0">
@@ -122,6 +182,31 @@ const About = () => {
               Fortium Africa collaborates with leading partners, developers, and organizations driving renewable energy Africa and sustainable infrastructure development.
             </p>
           </div>
+           <div className="mb-12">
+              <Carousel
+                setApi={setCarouselApi}
+                opts={{
+                  align: "center",
+                  loop: true,
+                }}
+              >
+                <CarouselContent>
+                  {partners.map((partner, index) => (
+                    <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
+                      <div className="flex items-center justify-center h-[120px] bg-muted rounded-lg p-4">
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          className="max-w-full max-h-full object-contain"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
         </div>
       </section>
 
@@ -165,35 +250,67 @@ const About = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-heading font-bold sm:text-4xl mb-4">Our Team</h2>
-            <p className="text-lg text-muted-foreground font-body max-w-3xl mx-auto mb-4">
+            {/* <p className="text-lg text-muted-foreground font-body max-w-3xl mx-auto mb-4">
               People Behind the Progress
-            </p>
+            </p> */}
             <p className="text-base text-muted-foreground font-body max-w-3xl mx-auto">
               Fortium Africa's strength lies in its people, a multidisciplinary team of engineers, project managers, designers, and technical experts who bring together a wealth of experience in each phase of project execution.
             </p>
           </div>
-          
-          <div className="text-center">
-            <p className="text-lg font-heading font-semibold mb-4">Our Leadership Team</p>
-            <p className="text-muted-foreground font-body max-w-2xl mx-auto mb-8">
-              Our leadership team is composed of seasoned professionals who uphold ethical engineering standards and a client-first mindset in every project we undertake.
+          <div className="text-center mb-8">
+            <p className="text-lg font-heading font-semibold mb-4">The Leadership</p>
+            <p className="text-muted-foreground font-body max-w-2xl mx-auto">
+              A cross-functional leadership team guiding strategy, delivery, and innovation across renewable energy, water, and infrastructure projects.
             </p>
-            <p className="text-lg text-muted-foreground font-body">
-              Coming soon: Team profiles and leadership details
-            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto">
+            <Carousel
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                {teamMembers.map((member, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <Card className="h-full shadow-sm border-border/70">
+                      <CardContent className="p-6 flex flex-col items-center text-center h-full">
+                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary font-heading text-xl">
+                          {member.name
+                            .split(" ")
+                            .map((part) => part.charAt(0))
+                            .slice(0, 2)
+                            .join("")}
+                        </div>
+                        <h3 className="text-xl font-heading font-semibold mb-1">{member.name}</h3>
+                        <p className="text-sm uppercase tracking-wide text-primary mb-3">{member.role}</p>
+                        <p className="text-sm text-muted-foreground font-body">
+                          {member.bio}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center gap-4 mt-6">
+                <CarouselPrevious className="static translate-y-0" />
+                <CarouselNext className="static translate-y-0" />
+              </div>
+            </Carousel>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-secondary text-secondary-foreground">
+      <section className="py-20 bg-muted text-secondary-foreground">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-heading font-bold sm:text-4xl mb-4">
+              <h2 className="text-3xl font-heading font-bold sm:text-4xl mb-4 text-black">
                 Let's Engineer Africa's Next Chapter
               </h2>
-              <p className="text-lg opacity-90 font-body">
+              <p className="text-lg opacity-90 font-body text-black">
                 Partner with Fortium Africa to transform your vision into reality. Whether you're planning a renewable energy project, water infrastructure, or civil engineering development, our team is ready to deliver innovative, sustainable solutions tailored to your needs.
               </p>
             </div>
