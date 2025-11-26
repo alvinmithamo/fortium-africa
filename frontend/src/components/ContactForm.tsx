@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,9 +11,11 @@ export const ContactForm = () => {
     phone: "",
     message: "",
   });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
     
     // Basic validation
     if (!formData.fullName || !formData.email || !formData.phone || !formData.message) {
@@ -27,18 +29,37 @@ export const ContactForm = () => {
       toast.error("Please enter a valid email address");
       return;
     }
-
-    // In a real application, this would send to a backend
-    console.log("Form submitted:", formData);
-    toast.success("Thank you! We'll get back to you soon.");
     
-    // Reset form
-    setFormData({
-      fullName: "",
-      email: "",
-      phone: "",
-      message: "",
-    });
+    try {
+      setSubmitting(true);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        const message = data?.error || "Something went wrong. Please try again.";
+        toast.error(message);
+        return;
+      }
+
+      toast.success("Thank you! We'll get back to you soon.");
+
+      setFormData({
+        fullName: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } catch (error) {
+      toast.error("Unable to send your message. Please try again later.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -99,8 +120,8 @@ export const ContactForm = () => {
         />
       </div>
 
-      <Button type="submit" className="w-full">
-        Send Message
+      <Button type="submit" className="w-full" disabled={submitting}>
+        {submitting ? "Sending..." : "Send Message"}
       </Button>
     </form>
   );
