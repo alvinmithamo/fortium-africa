@@ -86,7 +86,7 @@ const Home = () => {
             <h1 className="text-4xl font-heading font-bold text-white sm:text-5xl lg:text-6xl mb-6">
               Infrastructure For Modern Africa
             </h1>
-            <p className="text-xl text-white/90 font-body mb-4">
+            <p className="text-2xl text-white/90 font-body mb-4">
               Empowering communities, industries, and nations through smart, sustainable engineering and renewable energy solutions built for Africa's future.
             </p>
             <p className="text-lg text-white/80 font-body mb-8 mx-auto max-w-2xl">
