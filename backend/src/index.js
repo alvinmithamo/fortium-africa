@@ -104,9 +104,8 @@ async function ensureSchema() {
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 app.use("/uploads", express.static(UPLOADS_DIR));
-
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
