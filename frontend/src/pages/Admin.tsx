@@ -452,14 +452,14 @@ const Admin = () => {
           </div>
           <div className="flex flex-wrap gap-3 text-xs sm:text-sm">
             <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/5 px-3 py-2">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-emerald-400">Projects</p>
-              <p className="mt-1 font-heading text-sm text-emerald-100">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-emerald-600">Projects</p>
+              <p className="mt-1 font-heading text-sm text-emerald-500">
                 {projects.length || "0"} active
               </p>
             </div>
             <div className="rounded-xl border border-sky-500/40 bg-sky-500/5 px-3 py-2">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-sky-400">Blog Posts</p>
-              <p className="mt-1 font-heading text-sm text-sky-100">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-sky-600">Blog Posts</p>
+              <p className="mt-1 font-heading text-sm text-sky-500">
                 {blogs.length || "0"} total
               </p>
             </div>
