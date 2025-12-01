@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,41 +13,62 @@ const categories = [
   { name: "Sustainability & Impact", tagline: "Highlighting our role in promoting environmental responsibility, climate resilience, and social development through every project." }
 ];
 
-// Blog articles
-const articles = [
-  {
-    id: 1,
-    title: "The Future of Solar Energy in East Africa",
-    category: "Renewable Energy Trends",
-    excerpt: "Exploring the rapid growth of solar adoption across East African nations and the transformative impact on energy access.",
-    date: "2024-01-15",
-    image: "/api/placeholder.svg",
-  },
-  {
-    id: 2,
-    title: "Case Study: 500kW Commercial Solar Installation Success",
-    category: "Client Success Stories",
-    excerpt: "How our recent Nairobi project achieved 60% energy cost reduction and exceeded client expectations.",
-    date: "2024-01-10",
-    image: "/api/placeholder.svg",
-  },
-  {
-    id: 3,
-    title: "Sustainable Water Infrastructure for Growing Cities",
-    category: "Sustainability & Impact",
-    excerpt: "Best practices for designing water treatment facilities that serve communities while protecting the environment.",
-    date: "2024-01-05",
-    image: "/api/placeholder.svg",
-  },
-];
+type BlogPost = {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  content: string;
+  cover_image_url: string | null;
+  status: string;
+  published_at: string | null;
+};
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [email, setEmail] = useState("");
+  const [articles, setArticles] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredArticles = selectedCategory === "All" 
-    ? articles 
-    : articles.filter(article => article.category === selectedCategory);
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadBlogs() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await fetch("/api/blogs");
+        if (!res.ok) {
+          throw new Error("Failed to load blog posts");
+        }
+
+        const data = await res.json();
+        if (!data?.success || !Array.isArray(data.data)) {
+          throw new Error("Unexpected response from server");
+        }
+
+        if (isMounted) {
+          setArticles(data.data as BlogPost[]);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err instanceof Error ? err.message : "Failed to load blog posts");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadBlogs();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const selectedCategoryData = categories.find(cat => cat.name === selectedCategory);
 
@@ -103,29 +124,57 @@ const Blog = () => {
       {/* Articles Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
-            {filteredArticles.map((article) => (
-              <Card key={article.id} className="h-full transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer">
-                <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-                  <img 
-                    src={article.image} 
-                    alt={article.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <Badge className="mb-3">{article.category}</Badge>
-                  <h3 className="text-xl font-heading font-semibold mb-3">{article.title}</h3>
-                  <p className="text-muted-foreground font-body mb-4">{article.excerpt}</p>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>{new Date(article.date).toLocaleDateString()}</span>
-                  </div>
-                  <Button variant="link" className="mt-4 p-0">Read More →</Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {loading && (
+            <p className="text-muted-foreground font-body">Loading articles...</p>
+          )}
+
+          {error && !loading && (
+            <p className="text-red-600 font-body">{error}</p>
+          )}
+
+          {!loading && !error && (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
+              {articles.map((article) => {
+                const image = article.cover_image_url || "/api/placeholder.svg";
+                const date = article.published_at
+                  ? new Date(article.published_at).toLocaleDateString()
+                  : "";
+
+                return (
+                  <Card
+                    key={article.id}
+                    className="h-full transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer"
+                  >
+                    <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+                      <img
+                        src={image}
+                        alt={article.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardContent className="p-6">
+                      <Badge className="mb-3">Blog</Badge>
+                      <h3 className="text-xl font-heading font-semibold mb-3">
+                        {article.title}
+                      </h3>
+                      <p className="text-muted-foreground font-body mb-4">
+                        {article.excerpt || article.content.slice(0, 140) + (article.content.length > 140 ? "..." : "")}
+                      </p>
+                      {date && (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Calendar className="h-4 w-4" />
+                          <span>{date}</span>
+                        </div>
+                      )}
+                      <Button variant="link" className="mt-4 p-0">
+                        Read More →
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

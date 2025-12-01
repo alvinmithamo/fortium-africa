@@ -1,46 +1,67 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin } from "lucide-react";
 import projectsHero from "@/assets/projects-hero.jpg";
 
-// Project data
-const projects = [
-  {
-    id: "solar-commercial-nairobi",
-    name: "Commercial Solar Installation - Nairobi",
-    sector: "Solar Energy",
-    location: "Nairobi, Kenya",
-    capacity: "500 kWp",
-    image: projectsHero,
-  },
-  {
-    id: "water-treatment-kampala",
-    name: "Water Treatment Facility - Kampala",
-    sector: "Water Infrastructure",
-    location: "Kampala, Uganda",
-    capacity: "10,000 m³/day",
-    image: projectsHero,
-  },
-  {
-    id: "civil-works-dar",
-    name: "Infrastructure Development - Dar es Salaam",
-    sector: "Civil Engineering",
-    location: "Dar es Salaam, Tanzania",
-    capacity: "5km road network",
-    image: projectsHero,
-  },
-  {
-    id: "solar-hybrid-kigali",
-    name: "Solar-Diesel Hybrid System - Kigali",
-    sector: "Solar Energy",
-    location: "Kigali, Rwanda",
-    capacity: "750 kWp + 500 kWh BESS",
-    image: projectsHero,
-  },
-];
+type Project = {
+  id: number;
+  title: string;
+  slug: string;
+  summary: string | null;
+  description: string | null;
+  image_url: string | null;
+  link_url: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
 
 const Projects = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadProjects() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await fetch("/api/projects");
+        if (!res.ok) {
+          throw new Error("Failed to load projects");
+        }
+
+        const data = await res.json();
+        if (!data?.success || !Array.isArray(data.data)) {
+          throw new Error("Unexpected response from server");
+        }
+
+        if (isMounted) {
+          setProjects(data.data as Project[]);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setError(err instanceof Error ? err.message : "Failed to load projects");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadProjects();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -69,32 +90,52 @@ const Projects = () => {
       {/* Projects Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <Link key={project.id} to={`/projects/${project.id}`}>
-                <Card className="h-full transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer overflow-hidden">
-                  <div className="aspect-video w-full overflow-hidden">
-                    <img 
-                      src={project.image} 
-                      alt={project.name}
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <Badge className="mb-3">{project.sector}</Badge>
-                    <h3 className="text-xl font-heading font-semibold mb-2">{project.name}</h3>
-                    <div className="flex items-center gap-2 text-muted-foreground mb-2">
-                      <MapPin className="h-4 w-4" />
-                      <span className="text-sm font-body">{project.location}</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground font-body">
-                      Capacity: {project.capacity}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+          {loading && (
+            <p className="text-muted-foreground font-body">Loading projects...</p>
+          )}
+
+          {error && !loading && (
+            <p className="text-red-600 font-body">{error}</p>
+          )}
+
+          {!loading && !error && (
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project) => {
+                const image = project.image_url || projectsHero;
+
+                return (
+                  <Link key={project.id} to={`/projects/${project.slug}`}>
+                    <Card className="h-full transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer overflow-hidden">
+                      <div className="aspect-video w-full overflow-hidden">
+                        <img
+                          src={image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transition-transform hover:scale-105"
+                        />
+                      </div>
+                      <CardContent className="p-6">
+                        <Badge className="mb-3">Project</Badge>
+                        <h3 className="text-xl font-heading font-semibold mb-2">{project.title}</h3>
+                        {project.summary && (
+                          <p className="text-sm text-muted-foreground font-body mb-2">
+                            {project.summary}
+                          </p>
+                        )}
+                        {project.link_url && (
+                          <div className="flex items-center gap-2 text-muted-foreground mb-2">
+                            <MapPin className="h-4 w-4" />
+                            <span className="text-sm font-body truncate max-w-[220px]">
+                              {project.link_url}
+                            </span>
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
     </div>
