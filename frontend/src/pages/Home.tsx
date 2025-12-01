@@ -83,12 +83,12 @@ const Home = () => {
         
         <div className="container relative z-10 mx-auto px-4 py-24 lg:px-8 text-center">
           <div className="max-w-3xl animate-fade-in mx-auto">
-            <h1 className="text-4xl font-heading font-bold text-white sm:text-5xl lg:text-6xl mb-6">
+            <h1 className="text-5xl font-heading font-bold text-white sm:text-5xl lg:text-6xl mb-6">
               Infrastructure For Modern Africa
             </h1>
-            <p className="text-2xl text-white/90 font-body mb-4">
+            {/* <p className="text-3xl text-white/90 font-body mb-4">
               Empowering communities, industries, and nations through smart, sustainable engineering and renewable energy solutions built for Africa's future.
-            </p>
+            </p> */}
             <p className="text-lg text-white/80 font-body mb-8 mx-auto max-w-2xl">
               Fortium Africa is a trusted Engineering, Procurement, and Construction (EPC) firm in Kenya committed to shaping Africa's future through renewable energy, solar EPC Kenya and infrastructure development solutions. From solar PV Africa projects to water systems and civil works, we design and deliver projects that drive economic growth, efficiency, and sustainability across the continent.
             </p>
