@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 
 interface Project {
@@ -606,12 +613,18 @@ const Admin = () => {
                   </div>
                   <div className="md:col-span-1 space-y-1.5">
                     <Label htmlFor="status" className="text-white">Status</Label>
-                    <Input
-                      id="status"
+                    <Select
                       value={form.status}
-                      onChange={(e) => setForm({ ...form, status: e.target.value })}
-                      placeholder="draft or published"
-                    />
+                      onValueChange={(value) => setForm({ ...form, status: value })}
+                    >
+                      <SelectTrigger id="status" className="bg-slate-900/60 text-white border-slate-700">
+                        <SelectValue placeholder="Select status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="draft">Draft</SelectItem>
+                        <SelectItem value="published">Published</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="md:col-span-2 flex justify-end pt-2">
                     <Button
@@ -786,12 +799,18 @@ const Admin = () => {
                   </div>
                   <div className="md:col-span-1 space-y-1.5">
                     <Label htmlFor="blog-status" className="text-white">Status</Label>
-                    <Input
-                      id="blog-status"
+                    <Select
                       value={blogForm.status}
-                      onChange={(e) => setBlogForm({ ...blogForm, status: e.target.value })}
-                      placeholder="draft or published"
-                    />
+                      onValueChange={(value) => setBlogForm({ ...blogForm, status: value })}
+                    >
+                      <SelectTrigger id="blog-status" className="bg-slate-900/60 text-white border-slate-700">
+                        <SelectValue placeholder="Select status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="draft">Draft</SelectItem>
+                        <SelectItem value="published">Published</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div className="md:col-span-1 space-y-1.5">
                     <Label htmlFor="blog-published" className="text-white">Published At (optional ISO date)</Label>
