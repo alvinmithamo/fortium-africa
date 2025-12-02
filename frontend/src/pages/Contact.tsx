@@ -141,12 +141,14 @@ const Contact = () => {
       <section className="py-12 bg-muted">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="aspect-video w-full rounded-lg overflow-hidden bg-background border">
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-              <div className="text-center">
-                <MapPin className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p className="font-body">Interactive Google Map will be integrated here</p>
-              </div>
-            </div>
+            <iframe
+              title="Fortium Africa Office Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.858855793682!2d36.81722331504591!3d-1.2863899990626164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d4a1f5e9f9%3A0x7f5c2c4e9b2a8b!2sNairobi%20CBD%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
+              className="w-full h-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </section>
