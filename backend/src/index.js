@@ -41,7 +41,10 @@ if (!ADMIN_TOKEN) {
   process.exit(1);
 }
 
-const pool = new Pool({ connectionString: DATABASE_URL });
+const pool = new Pool({
+  connectionString: DATABASE_URL,
+  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+});
 const resend = new Resend(RESEND_API_KEY);
 
 const __filename = fileURLToPath(import.meta.url);
