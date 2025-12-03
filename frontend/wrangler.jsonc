@@ -1,0 +1,20 @@
+{
+  // Required: Name of your Worker/project (use your Cloudflare Pages project name)
+  "name": "fortium-africa",  // e.g., "fortium-website"
+
+  // Required: Date for compatibility (use today's date)
+  "compatibility_date": "2025-12-03",
+
+  // For static assets (your built frontend) – this is what you need
+  "assets": {
+    "directory": "./dist"  // ← Change to your actual build folder (e.g., "./build" or "./public")
+  },
+
+  // Optional: If you have backend/Worker code, add this instead/uncomment
+  "main": "src/worker.js" // Path to your Worker entry script (e.g., for API routes)
+
+  // Optional: For full-stack, if using Cloudflare D1 for DB (not PostgreSQL)
+  // "d1_databases": [
+  //   { "binding": "DB", "database_name": "your-db", "database_id": "your-db-id" }
+  // ]
+}
