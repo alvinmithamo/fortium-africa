@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,8 @@ const navigation = [
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const pathname = location.pathname;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -37,15 +39,21 @@ export const Header = () => {
         </div>
         
         <div className="hidden lg:flex lg:gap-x-8">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className="text-sm font-medium font-body transition-colors hover:text-primary"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "text-sm font-medium font-body transition-colors hover:text-primary border-b-2 border-transparent pb-1",
+                  isActive && "border-primary text-primary"
+                )}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </div>
         
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -61,16 +69,22 @@ export const Header = () => {
         mobileMenuOpen ? "block" : "hidden"
       )}>
         <div className="space-y-1 px-4 pb-3 pt-2">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              className="block rounded-md px-3 py-2 text-base font-medium font-body hover:bg-muted"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "block rounded-md px-3 py-2 text-base font-medium font-body hover:bg-muted border-l-4 border-transparent",
+                  isActive && "bg-muted border-primary text-primary"
+                )}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
           <div className="pt-2">
             <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
               <Button variant="default" className="w-full">Request a Quote</Button>
