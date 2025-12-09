@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { apiUrl } from "@/lib/api";
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ export const ContactForm = () => {
     
     try {
       setSubmitting(true);
-      const response = await fetch("/api/contact", {
+      const response = await fetch(apiUrl("/api/contact"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
