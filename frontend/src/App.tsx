@@ -16,6 +16,9 @@ import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
