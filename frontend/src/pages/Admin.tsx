@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { apiUrl } from "@/lib/api";
 import {
   Select,
   SelectContent,
@@ -81,7 +82,7 @@ const Admin = () => {
       reader.readAsDataURL(file);
     });
 
-    const res = await fetch("/api/admin/upload-image", {
+    const res = await fetch(apiUrl("/api/admin/upload-image"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +121,7 @@ const Admin = () => {
       setLoading(true);
       setError(null);
 
-      const res = await fetch("/api/admin/projects", {
+      const res = await fetch(apiUrl("/api/admin/projects"), {
         headers: {
           "x-admin-token": adminToken,
         },
@@ -151,7 +152,7 @@ const Admin = () => {
       setLoading(true);
       setError(null);
 
-      const res = await fetch("/api/admin/blogs", {
+      const res = await fetch(apiUrl("/api/admin/blogs"), {
         headers: {
           "x-admin-token": adminToken,
         },
@@ -206,7 +207,7 @@ const Admin = () => {
       const isEditing = editingProjectId !== null;
 
       const res = await fetch(
-        isEditing ? `/api/admin/projects/${editingProjectId}` : "/api/admin/projects",
+        apiUrl(isEditing ? `/api/admin/projects/${editingProjectId}` : "/api/admin/projects"),
         {
           method: isEditing ? "PUT" : "POST",
           headers: {
@@ -267,7 +268,7 @@ const Admin = () => {
     }
 
     try {
-      const res = await fetch(`/api/admin/projects/${id}`, {
+      const res = await fetch(apiUrl(`/api/admin/projects/${id}`), {
         method: "DELETE",
         headers: {
           "x-admin-token": token,
@@ -330,7 +331,7 @@ const Admin = () => {
       const isEditing = editingBlogId !== null;
 
       const res = await fetch(
-        isEditing ? `/api/admin/blogs/${editingBlogId}` : "/api/admin/blogs",
+        apiUrl(isEditing ? `/api/admin/blogs/${editingBlogId}` : "/api/admin/blogs"),
         {
           method: isEditing ? "PUT" : "POST",
           headers: {
@@ -392,7 +393,7 @@ const Admin = () => {
     }
 
     try {
-      const res = await fetch(`/api/admin/blogs/${id}`, {
+      const res = await fetch(apiUrl(`/api/admin/blogs/${id}`), {
         method: "DELETE",
         headers: {
           "x-admin-token": token,

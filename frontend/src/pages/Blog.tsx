@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
 import { toast } from "sonner";
+import { apiUrl } from "@/lib/api";
 
 const categories = [
   { name: "All", tagline: "" },
@@ -39,7 +40,7 @@ const Blog = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch("/api/blogs");
+        const res = await fetch(apiUrl("/api/blogs"));
         if (!res.ok) {
           throw new Error("Failed to load blog posts");
         }
@@ -135,7 +136,7 @@ const Blog = () => {
           {!loading && !error && (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
               {articles.map((article) => {
-                const image = article.cover_image_url || "/api/placeholder.svg";
+                const image = article.cover_image_url || "/placeholder.svg";
                 const date = article.published_at
                   ? new Date(article.published_at).toLocaleDateString()
                   : "";

@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin } from "lucide-react";
 import projectsHero from "@/assets/projects-hero.jpg";
+import { apiUrl } from "@/lib/api";
 
 type Project = {
   id: number;
@@ -31,7 +32,7 @@ const Projects = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch("/api/projects");
+        const res = await fetch(apiUrl("/api/projects"));
         if (!res.ok) {
           throw new Error("Failed to load projects");
         }

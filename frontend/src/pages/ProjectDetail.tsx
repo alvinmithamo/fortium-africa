@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, ArrowLeft } from "lucide-react";
 import projectsHero from "@/assets/projects-hero.jpg";
+import { apiUrl } from "@/lib/api";
 
 type Project = {
   id: number;
@@ -34,7 +35,7 @@ const ProjectDetail = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`/api/projects/${slug}`);
+        const res = await fetch(apiUrl(`/api/projects/${slug}`));
         if (!res.ok) {
           if (res.status === 404) {
             throw new Error("Project not found");
