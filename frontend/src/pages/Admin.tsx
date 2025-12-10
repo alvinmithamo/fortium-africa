@@ -440,7 +440,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-slate-950/90 to-background flex flex-col py-10">
+    <div className="min-h-screen bg-muted flex flex-col py-10">
       <div className="container mx-auto px-4 lg:px-8 max-w-6xl space-y-10">
         <header className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
@@ -475,7 +475,7 @@ const Admin = () => {
         </header>
 
         {/* Token Section */}
-        <Card className="border border-primary/20 bg-background/80 backdrop-blur-sm shadow-[0_18px_60px_rgba(15,23,42,0.65)]">
+        <Card className="border border-primary/20 bg-background/20 backdrop-blur-sm shadow-[0_0px_0px_rgba(15,23,42,0.65)]">
           <CardContent className="p-6 sm:p-7 space-y-5">
             <div className="flex flex-col gap-4 md:flex-row md:items-end">
               <div className="flex-1 space-y-2">
