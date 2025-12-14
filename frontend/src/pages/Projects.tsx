@@ -9,41 +9,45 @@ import { Project } from "@/types/project";
 import { demoProjects } from "@/data/demoProjects";
 
 const Projects = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Start with demo projects
+  const [projects, setProjects] = useState<Project[]>(demoProjects);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>('all');
 
   useEffect(() => {
     let isMounted = true;
 
-    async function loadProjects() {
+    async function loadAdminProjects() {
       try {
         setLoading(true);
         setError(null);
 
         const res = await fetch(apiUrl("/api/projects"));
         if (!res.ok) {
-          throw new Error("Failed to load projects");
+          // If there's an error, we'll just show the demo projects
+          console.warn("Could not load admin projects, showing demo projects only");
+          return;
         }
 
         const data = await res.json();
         if (!data?.success || !Array.isArray(data.data)) {
-          throw new Error("Unexpected response from server");
+          console.warn("Unexpected response from server, showing demo projects only");
+          return;
         }
 
         if (isMounted) {
-          // Combine demo projects with fetched projects, ensuring no duplicates by ID
-          const allProjects = [...demoProjects, ...(data.data as Project[])]
-            .filter((project, index, self) => 
-              index === self.findIndex((p) => p.id === project.id)
-            );
-          setProjects(allProjects);
+          // Only include admin projects that don't have the same ID as demo projects
+          const adminProjects = (data.data as Project[]).filter(adminProject => 
+            !demoProjects.some(demoProject => demoProject.id === adminProject.id)
+          );
+          
+          // Combine demo projects with admin projects
+          setProjects([...demoProjects, ...adminProjects]);
         }
       } catch (err) {
-        if (isMounted) {
-          setError(err instanceof Error ? err.message : "Failed to load projects");
-        }
+        console.error("Error loading admin projects:", err);
+        // If there's an error, we'll just show the demo projects
       } finally {
         if (isMounted) {
           setLoading(false);
@@ -51,7 +55,8 @@ const Projects = () => {
       }
     }
 
-    loadProjects();
+    // Only load admin projects, demo projects are already in state
+    loadAdminProjects();
 
     return () => {
       isMounted = false;
