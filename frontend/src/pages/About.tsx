@@ -50,30 +50,21 @@ const partners = [
 
 const teamMembers = [
   {
-    name: "Eng. James Mwangi",
-    role: "Managing Director & Lead Engineer",
+    name: "Elliot Kullakow",
+    role: "Managing Director",
     bio: "Provides strategic leadership across all EPC projects, ensuring technical excellence and alignment with client objectives across the region.",
   },
   {
-    name: "Eng. Grace Njeri",
-    role: "Head of Renewable Energy",
-    bio: "Leads design and delivery of solar, hybrid and storage solutions, with a focus on reliability, safety and lifecycle performance.",
-  },
-  {
-    name: "Eng. Daniel Otieno",
-    role: "Civil & Infrastructure Lead",
-    bio: "Oversees planning and execution of water, civil and structural works, integrating sustainability and cost efficiency on every project.",
+    name: "Simon Wandanda",
+    role: "Co-Founder & CEO",
+    bio: "Oversees the general running & performance of the company, steering it to greater heights in the industry.",
   },
   {
     name: "Sarah Kendi",
-    role: "Projects & Delivery Manager",
+    role: "Projects Manager",
     bio: "Coordinates multidisciplinary teams, schedules and budgets to deliver projects on time, within scope, and to the highest quality standards.",
   },
-  {
-    name: "Michael Banda",
-    role: "Commercial & Partnerships Lead",
-    bio: "Develops and manages partnerships with developers, utilities and development partners, ensuring long-term value for all stakeholders.",
-  },
+  
 ];
 
 const About = () => {
@@ -161,8 +152,8 @@ const About = () => {
             {values.map((value, index) => (
               <Card key={index} className="text-center">
                 <CardContent className="p-6">
-                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary">
-                    <value.icon className="h-8 w-8 text-primary-foreground" />
+                  <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-deep-navy">
+                    <value.icon className="h-8 w-8 text-accent" />
                   </div>
                   <h3 className="text-xl font-heading font-semibold mb-3">{value.title}</h3>
                   <p className="text-muted-foreground font-body">{value.description}</p>
@@ -276,7 +267,7 @@ const About = () => {
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                     <Card className="h-full shadow-sm border-border/70">
                       <CardContent className="p-6 flex flex-col items-center text-center h-full">
-                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary font-heading text-xl">
+                        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-deep-navy text-accent font-heading text-xl">
                           {member.name
                             .split(" ")
                             .map((part) => part.charAt(0))
