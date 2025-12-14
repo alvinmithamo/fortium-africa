@@ -64,9 +64,9 @@ export const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-1">
       <div>
-        <label htmlFor="fullName" className="block text-sm font-medium mb-2">
+        <label htmlFor="fullName" className="block text-sm font-medium mb-1">
           Full Name *
         </label>
         <Input
@@ -76,6 +76,7 @@ export const ContactForm = () => {
           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
           placeholder="John Doe"
           required
+          className="text-foreground"
         />
       </div>
 
@@ -90,6 +91,7 @@ export const ContactForm = () => {
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           placeholder="john@example.com"
           required
+          className="text-foreground"
         />
       </div>
 
@@ -104,6 +106,7 @@ export const ContactForm = () => {
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           placeholder="+254 700 000 000"
           required
+          className="text-foreground"
         />
       </div>
 
@@ -118,6 +121,7 @@ export const ContactForm = () => {
           placeholder="Tell us about your project..."
           rows={5}
           required
+          className="text-foreground"
         />
       </div>
 
