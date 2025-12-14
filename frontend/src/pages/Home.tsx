@@ -13,7 +13,7 @@ import type { CarouselApi } from "@/components/ui/carousel";
 import { Sun, Droplet, Building, Users, Award, Target } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import heroImage from "@/assets/hero-home.jpg";
-import logo1 from "@/assets/EN-UNHCR-White.svg"
+// import logo1 from "@/assets/EN-UNHCR-White.svg"
 import logo2 from "@/assets/GivePowergrey2_r.png"
 import logo3 from "@/assets/KeRRA Logo.png"
 import logo4 from "../assets/Mercy_Corps_Logo-removebg-preview.png"
@@ -49,7 +49,7 @@ const stats = [
 ];
 
 const partners = [
-  { name: "Partner 1", logo: logo1 },
+  // { name: "Partner 1", logo: logo1 },
   { name: "Partner 2", logo: logo2 },
   { name: "Partner 3", logo: logo3 },
   { name: "Partner 4", logo: logo4 },
