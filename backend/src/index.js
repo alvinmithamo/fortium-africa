@@ -106,14 +106,34 @@ async function ensureSchema() {
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = [
+  'https://fortium-africa-2.onrender.com',
+  'http://localhost:3000',
+  'http://localhost:5173' // Vite default dev server port
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
 app.use(express.json({ limit: "10mb" }));
 app.use("/uploads", express.static(UPLOADS_DIR));
 app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+// Contact form submission endpoint
 app.post("/api/contact", async (req, res) => {
+  console.log('Received contact form submission:', JSON.stringify(req.body, null, 2));
   const { fullName, email, phone, message } = req.body || {};
 
   if (!fullName || !email || !phone || !message) {
@@ -136,7 +156,16 @@ app.post("/api/contact", async (req, res) => {
     return res.json({ success: true });
   } catch (err) {
     console.error("Error handling /api/contact:", err);
-    return res.status(500).json({ success: false, error: "Internal server error" });
+    console.error('Error details:', {
+      message: err.message,
+      stack: err.stack,
+      code: err.code
+    });
+    return res.status(500).json({ 
+      success: false, 
+      error: "Internal server error",
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 });
 
