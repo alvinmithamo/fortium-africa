@@ -5,19 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { MapPin, ArrowLeft } from "lucide-react";
 import projectsHero from "@/assets/projects-hero.jpg";
 import { apiUrl } from "@/lib/api";
-
-type Project = {
-  id: number;
-  title: string;
-  slug: string;
-  summary: string | null;
-  description: string | null;
-  image_url: string | null;
-  link_url: string | null;
-  status: string;
-  created_at: string;
-  updated_at: string;
-};
+import { demoProjects } from "@/data/demoProjects";
+import { Project } from "@/types/project";
 
 const ProjectDetail = () => {
   const { id: slug } = useParams<{ id: string }>();
@@ -34,6 +23,13 @@ const ProjectDetail = () => {
       try {
         setLoading(true);
         setError(null);
+
+        const demoProject = demoProjects.find(p => p.slug === slug);
+        if (demoProject) {
+          setProject(demoProject);
+          setLoading(false);
+          return;
+        }
 
         const res = await fetch(apiUrl(`/api/projects/${slug}`));
         if (!res.ok) {
