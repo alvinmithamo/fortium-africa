@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Sun, Battery, Droplet, Wrench, Building2, LineChart } from "lucide-react";
+import { Sun, Battery, Droplet, Wrench, Building, LineChart } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import servicesHero from "@/assets/services-hero.jpg";
 
@@ -35,8 +35,8 @@ const Services = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Sun className="h-6 w-6 text-primary" />
+              <div className="h-12 w-12 rounded-lg bg-deep-navy flex items-center justify-center">
+                <Sun className="h-6 w-6 text-accent" />
               </div>
               <h2 className="text-3xl font-heading font-bold">Solar Energy Solutions</h2>
             </div>
@@ -85,8 +85,8 @@ const Services = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <LineChart className="h-6 w-6 text-primary" />
+              <div className="h-12 w-12 rounded-lg bg-deep-navy flex items-center justify-center">
+                <LineChart className="h-6 w-6 text-accent" />
               </div>
               <h2 className="text-3xl font-heading font-bold">Engineering & Project Management Services</h2>
             </div>
@@ -109,7 +109,7 @@ const Services = () => {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <Card>
               <CardContent className="p-6">
-                <Wrench className="h-8 w-8 text-primary mb-4" />
+                <Wrench className="h-8 w-8 text-accent mb-4" />
                 <h3 className="text-xl font-heading font-semibold mb-3">Engineering Design, Procurement & Documentation</h3>
                 <p className="text-muted-foreground font-body text-sm">
                   Detailed feasibility studies, system design, technical specifications, and comprehensive project documentation.
@@ -119,7 +119,7 @@ const Services = () => {
 
             <Card>
               <CardContent className="p-6">
-                <Building2 className="h-8 w-8 text-primary mb-4" />
+                <Building className="h-8 w-8 text-accent mb-4" />
                 <h3 className="text-xl font-heading font-semibold mb-3">Technical Investigations & Reporting</h3>
                 <p className="text-muted-foreground font-body text-sm">
                   Site assessments, surveys, environmental impact studies, and regulatory compliance reporting.
@@ -129,7 +129,7 @@ const Services = () => {
 
             <Card>
               <CardContent className="p-6">
-                <LineChart className="h-8 w-8 text-primary mb-4" />
+                <LineChart className="h-8 w-8 text-accent mb-4" />
                 <h3 className="text-xl font-heading font-semibold mb-3">Construction Supervision & Project Management</h3>
                 <p className="text-muted-foreground font-body text-sm">
                   On-site supervision, quality control, timeline and budget management, and stakeholder coordination.
@@ -139,7 +139,7 @@ const Services = () => {
 
             <Card>
               <CardContent className="p-6">
-                <Wrench className="h-8 w-8 text-primary mb-4" />
+                <Wrench className="h-8 w-8 text-accent mb-4" />
                 <h3 className="text-xl font-heading font-semibold mb-3">Project Planning & Development</h3>
                 <p className="text-muted-foreground font-body text-sm">
                   Strategic planning, formulation of project briefs, and development of execution roadmaps.
@@ -155,8 +155,8 @@ const Services = () => {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-4">
-              <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Building2 className="h-6 w-6 text-primary" />
+              <div className="h-12 w-12 rounded-lg bg-deep-navy flex items-center justify-center">
+                <Building className="h-6 w-6 text-accent" />
               </div>
               <h2 className="text-3xl font-heading font-bold">Construction Works</h2>
             </div>
@@ -182,7 +182,7 @@ const Services = () => {
 
             <Card>
               <CardContent className="p-8">
-                <Building2 className="h-10 w-10 text-primary mb-4" />
+                <Building className="h-10 w-10 text-primary mb-4" />
                 <h3 className="text-2xl font-heading font-semibold mb-4">Civil Works</h3>
                 <ul className="space-y-3 text-muted-foreground font-body">
                   <li>• Roads and bridges</li>
