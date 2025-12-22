@@ -58,7 +58,7 @@ export const Header = () => {
         
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to="/contact">
-            <Button variant="default">Request a Quote</Button>
+            <Button className="default bg-deep-navy">Request a Quote</Button>
           </Link>
         </div>
       </nav>
