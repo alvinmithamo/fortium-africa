@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Linkedin, Twitter } from "lucide-react";
 import Logo from "@/assets/FORTIUM WHITE PRIMARY LOGO.svg";
+import Logo1 from "@/assets/FORTIUM WHITE PRIMARY LOGO (1).svg"
 const navigation = {
   company: [
     { name: "About Us", href: "/about-us" },
@@ -29,7 +30,7 @@ export const Footer = () => {
           <div className="lg:col-span-1">
               <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
-            <img src={Logo} alt="Fortium Africa" className="h-10 mb-2 object-contain" />
+            <img src={Logo1} alt="Fortium Africa" className="h-10 mb-2 object-contain" />
           </Link>
         </div>
             <p className="text-sm font-body mb-5 opacity-90">
