@@ -60,7 +60,7 @@ const teamMembers = [
     bio: "Oversees the general running & performance of the company, steering it to greater heights in the industry.",
   },
   {
-    name: "Sarah Kendi",
+    name: "Cecilia Otieno",
     role: "Projects Manager",
     bio: "Coordinates multidisciplinary teams, schedules and budgets to deliver projects on time, within scope, and to the highest quality standards.",
   },
