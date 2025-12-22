@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Logo from "@/assets/FORTIUM BLUE PRIMARY LOGO.svg";
+// import Logo from "@/assets/FORTIUM BLUE PRIMARY LOGO.svg";
+import Logo1 from "@/assets/FORTIUM BLUE PRIMARY LOGO (1).svg" 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about-us" },
@@ -23,7 +24,7 @@ export const Header = () => {
       <nav className="container mx-auto flex items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
-            <img src={Logo} alt="Fortium Africa" className="h-10 object-contain" />
+            <img src={Logo1} alt="Fortium Africa" className="h-10 object-contain" />
           </Link>
         </div>
         
