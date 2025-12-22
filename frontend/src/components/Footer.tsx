@@ -104,7 +104,7 @@ export const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-secondary-foreground/20">
           <p className="text-center text-sm opacity-75">
-            © {new Date().getFullYear()} Fortium Africa. All rights reserved.
+            © {new Date().getFullYear()} Fortium Africa. All rights reserved. Powered by <a href="http://sleeksolutions.africa/" className="text-accent">Sleek Solutions Africa</a>
           </p>
         </div>
       </div>
