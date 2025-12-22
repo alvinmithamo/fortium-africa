@@ -6,10 +6,10 @@ const Contact = () => {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-deep-navy to-primary py-20">
+      <section className="bg-deep-navy py-20">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-3xl animate-fade-in">
-            <h1 className="text-4xl font-heading font-bold text-white sm:text-5xl mb-6">
+            <h1 className="text-4xl font-heading font-bold text-accent sm:text-5xl mb-6">
               Let's Engineer Africa's Sustainable Future Together
             </h1>
             <p className="text-xl text-white/90 font-body">
@@ -31,8 +31,8 @@ const Contact = () => {
                 <Card>
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Mail className="h-6 w-6 text-primary" />
+                      <div className="h-12 w-12 rounded-lg bg-deep-navy flex items-center justify-center flex-shrink-0">
+                        <Mail className="h-6 w-6 text-accent" />
                       </div>
                       <div>
                         <h3 className="font-heading font-semibold mb-2">Email</h3>
@@ -47,8 +47,8 @@ const Contact = () => {
                 <Card>
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Phone className="h-6 w-6 text-primary" />
+                      <div className="h-12 w-12 rounded-lg bg-deep-navy flex items-center justify-center flex-shrink-0">
+                        <Phone className="h-6 w-6 text-accent" />
                       </div>
                       <div>
                         <h3 className="font-heading font-semibold mb-2">Phone</h3>
@@ -68,8 +68,8 @@ const Contact = () => {
                 <Card>
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="h-6 w-6 text-primary" />
+                      <div className="h-12 w-12 rounded-lg bg-deep-navy flex items-center justify-center flex-shrink-0">
+                        <MapPin className="h-6 w-6 text-accent" />
                       </div>
                       <div>
                         <h3 className="font-heading font-semibold mb-2">Office Location</h3>
