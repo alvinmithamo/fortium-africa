@@ -75,9 +75,9 @@ const Contact = () => {
                         <h3 className="font-heading font-semibold mb-2">Office Location</h3>
                         <p className="text-muted-foreground font-body">
                           Nairobi, Kenya<br />
-                          <a href="mailto:info@fortiumafrica.com" className="hover:text-primary transition-colors">
+                          {/* <a href="mailto:info@fortiumafrica.com" className="hover:text-primary transition-colors">
                             info@fortiumafrica.com
-                          </a>
+                          </a> */}
                         </p>
                       </div>
                     </div>
