@@ -20,7 +20,7 @@ const Services = () => {
         
         <div className="container relative z-10 mx-auto px-4 py-24 lg:px-8">
           <div className="max-w-3xl animate-fade-in">
-            <h1 className="text-4xl font-heading font-bold text-white sm:text-5xl lg:text-6xl mb-6">
+            <h1 className="text-4xl font-heading font-bold text-accent sm:text-5xl lg:text-6xl mb-6">
               Our Services
             </h1>
             <p className="text-xl text-white/90 font-body">
