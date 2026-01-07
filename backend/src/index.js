@@ -125,11 +125,10 @@ app.use(cors({
   },
   credentials: true
 }));
-app.use(express.json({ limit: "10mb" }));
 app.use("/uploads", express.static(UPLOADS_DIR));
-app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
-});
+
+const FRONTEND_DIR = path.join(__dirname, "..", "..", "frontend", "dist");
+app.use(express.static(FRONTEND_DIR));
 
 // Contact form submission endpoint
 app.post("/api/contact", async (req, res) => {
@@ -438,6 +437,10 @@ app.delete("/api/admin/blogs/:id", requireAdmin, async (req, res) => {
     console.error("Error handling DELETE /api/admin/blogs/:id:", err);
     return res.status(500).json({ success: false, error: "Internal server error" });
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(FRONTEND_DIR, 'index.html'));
 });
 
 ensureSchema()
