@@ -106,6 +106,9 @@ async function ensureSchema() {
 
 const app = express();
 
+// Parse JSON request bodies
+app.use(express.json());
+
 const allowedOrigins = [
   'https://fortium-africa-2.onrender.com',
   'http://localhost:3000',
@@ -447,6 +450,7 @@ ensureSchema()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Backend listening on http://localhost:${PORT}`);
+      console.log(`CORS allowed origins: ${JSON.stringify(allowedOrigins)}`);
     });
   })
   .catch((err) => {
