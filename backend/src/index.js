@@ -41,9 +41,14 @@ if (!ADMIN_TOKEN) {
   process.exit(1);
 }
 
+// Determine whether to use SSL for Postgres connections. Default to true in production
+// unless the DATABASE_URL points to localhost (common for local dev).
+const useSsl =
+  process.env.NODE_ENV === "production" && !(DATABASE_URL && /localhost|127\.0\.0\.1/.test(DATABASE_URL));
+
 const pool = new Pool({
   connectionString: DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
+  ssl: useSsl ? { rejectUnauthorized: false } : false,
 });
 const resend = new Resend(RESEND_API_KEY);
 
@@ -119,12 +124,21 @@ app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+    // Allow exact matches from `allowedOrigins`
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      return callback(null, true);
     }
-    return callback(null, true);
+
+    // Allow any localhost/127.0.0.1 origin on any port for local development
+    const localhostRegex = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+    if (localhostRegex.test(origin)) {
+      return callback(null, true);
+    }
+
+    // Not allowed: log and return an error so it's visible during debugging
+    console.warn(`Blocked CORS origin: ${origin}`);
+    const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+    return callback(new Error(msg), false);
   },
   credentials: true
 }));
@@ -451,6 +465,7 @@ ensureSchema()
     app.listen(PORT, () => {
       console.log(`Backend listening on http://localhost:${PORT}`);
       console.log(`CORS allowed origins: ${JSON.stringify(allowedOrigins)}`);
+      console.log(`Postgres SSL enabled: ${useSsl}`);
     });
   })
   .catch((err) => {
